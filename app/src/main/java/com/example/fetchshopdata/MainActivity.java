@@ -13,10 +13,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     private TextView mTextViewResult;
@@ -42,11 +47,19 @@ public class MainActivity extends AppCompatActivity {
 
     private void jsonParse(){
         String url = "https://shopapp2.azurewebsites.net/api/items";
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
+        final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 for(int i = 0 ; i<response.length(); i++){
                     try {
+                        final Gson gson = new Gson();
+                        String res = response.toString();
+
+                        Type category = new TypeToken<List<Item>>(){}.getType();
+
+                        List<Item> items = gson.fromJson(res,category);
+                        String json = gson.toJson(items);
+
                         JSONObject item = response.getJSONObject(i);
                         int id = item.getInt("id");
                         String name = item.getString("name");
@@ -55,7 +68,8 @@ public class MainActivity extends AppCompatActivity {
                         boolean isItemOfTheWeek = item.getBoolean("isItemOfTheWeek");
                         String imgPath = item.getString("imgPath");
 
-                        mTextViewResult.append(String.valueOf(id) + ", " + name + ", "+ shortDescription+", "+String.valueOf(price)+", "+String.valueOf(isItemOfTheWeek) + ", " + imgPath +"\n\n");
+                        mTextViewResult.append(items.get(i).toString());
+                        //mTextViewResult.append(String.valueOf(id) + ", " + name + ", "+ shortDescription+", "+String.valueOf(price)+", "+String.valueOf(isItemOfTheWeek) + ", " + imgPath +"\n\n");
 
                     } catch (JSONException e) {
                         e.printStackTrace();
