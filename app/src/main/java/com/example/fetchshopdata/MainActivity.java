@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -21,10 +22,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private TextView mTextViewResult;
+   // private TextView mTextViewResult;
     private RequestQueue mQueue;
 
     @Override
@@ -32,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mTextViewResult=findViewById(R.id.text_view_result);
+       // mTextViewResult=findViewById(R.id.text_view_result);
         Button buttonParse =findViewById(R.id.button_parse);
 
         mQueue = Volley.newRequestQueue(this);
@@ -50,15 +52,17 @@ public class MainActivity extends AppCompatActivity {
         final JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
+                Type category = new TypeToken<List<Item>>(){}.getType();
+                final Gson gson = new Gson();
+                String res = response.toString();
+                List<Item> items = gson.fromJson(res,category);
                 for(int i = 0 ; i<response.length(); i++){
                     try {
-                        final Gson gson = new Gson();
-                        String res = response.toString();
 
-                        Type category = new TypeToken<List<Item>>(){}.getType();
 
-                        List<Item> items = gson.fromJson(res,category);
-                        String json = gson.toJson(items);
+
+
+                      //  String json = gson.toJson(items);
 
                         JSONObject item = response.getJSONObject(i);
                         int id = item.getInt("id");
@@ -68,7 +72,9 @@ public class MainActivity extends AppCompatActivity {
                         boolean isItemOfTheWeek = item.getBoolean("isItemOfTheWeek");
                         String imgPath = item.getString("imgPath");
 
-                        mTextViewResult.append(items.get(i).toString());
+
+
+                       // mTextViewResult.append(items.get(i).toString());
                         //mTextViewResult.append(String.valueOf(id) + ", " + name + ", "+ shortDescription+", "+String.valueOf(price)+", "+String.valueOf(isItemOfTheWeek) + ", " + imgPath +"\n\n");
 
                     } catch (JSONException e) {
@@ -76,6 +82,10 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 }
+                final ListView listView = (ListView) findViewById(R.id.listView);
+                CustomAdapter adapter = new CustomAdapter(getApplicationContext(), items );
+                listView.setAdapter(adapter);
+
             }
         }, new Response.ErrorListener() {
             @Override
