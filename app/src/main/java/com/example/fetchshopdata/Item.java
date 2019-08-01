@@ -1,6 +1,9 @@
 package com.example.fetchshopdata;
 
-public class Item {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Item implements Parcelable {
 
     int id;
     String name;
@@ -8,6 +11,27 @@ public class Item {
     String shortDescription;
     boolean isItemOfTheWeek;
     String imgPath;
+
+    protected Item(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        price = in.readDouble();
+        shortDescription = in.readString();
+        isItemOfTheWeek = in.readByte() != 0;
+        imgPath = in.readString();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -61,4 +85,18 @@ public class Item {
         return "ID: " + String.valueOf(id) + "\n" +"Name: "+ name + "\n" +"Price: "+ String.valueOf(price) + "\n" +"Short Description: "+ shortDescription + "\n" +"Image Path: " + imgPath +"\n------------------------------\n";
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(name);
+        parcel.writeDouble(price);
+        parcel.writeString(shortDescription);
+        parcel.writeByte((byte) (isItemOfTheWeek ? 1 : 0));
+        parcel.writeString(imgPath);
+    }
 }

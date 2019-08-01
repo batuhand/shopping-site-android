@@ -2,8 +2,10 @@ package com.example.fetchshopdata;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,17 +28,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+
    // private TextView mTextViewResult;
     private RequestQueue mQueue;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-       // mTextViewResult=findViewById(R.id.text_view_result);
         Button buttonParse =findViewById(R.id.button_parse);
-
         mQueue = Volley.newRequestQueue(this);
         buttonParse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
 
     private void jsonParse(){
         String url = "https://shopapp2.azurewebsites.net/api/items";
@@ -77,8 +82,22 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 final ListView listView = (ListView) findViewById(R.id.listView);
+
                 CustomAdapter adapter = new CustomAdapter(getApplicationContext(), items );
                 listView.setAdapter(adapter);
+
+
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> a,
+                                            View v, int position, long id) {
+                        Item item = (Item) a.getItemAtPosition(position);
+                        Intent intent = new Intent(v.getContext(), ProductDetailsActivity.class);
+                        intent.putExtra("com.example.fetchshopdata.Item", item);
+                        startActivity(intent);
+                    }
+                });
 
             }
         }, new Response.ErrorListener() {

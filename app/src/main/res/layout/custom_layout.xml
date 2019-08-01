@@ -31,7 +31,8 @@
                 android:paddingTop="3dp"
                 android:text="TextView"
                 android:textSize="18dp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@android:color/black"/>
 
             <!--<TextView-->
             <!--android:id="@+id/textViewShortDes"-->
@@ -49,7 +50,7 @@
             android:id="@+id/textViewPrice"
             android:layout_width="104dp"
             android:layout_height="match_parent"
-
+            android:textColor="@android:color/black"
             android:gravity="right|center_vertical" />
 
     </LinearLayout>

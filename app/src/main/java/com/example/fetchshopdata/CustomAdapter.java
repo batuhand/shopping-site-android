@@ -16,9 +16,6 @@ import org.json.JSONArray;
 
 import java.util.List;
 
-/**
- * Created by hasibezafer on 18.02.2017.
- */
 
 public class CustomAdapter extends BaseAdapter {
     private LayoutInflater userInflater;
