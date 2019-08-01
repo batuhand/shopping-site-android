@@ -67,7 +67,6 @@ public class CustomAdapter extends BaseAdapter {
         textVievPrice.setText(String.valueOf(item.getPrice()));
         Picasso.with(context).load(url).into(imageViewUserPicture);
 
-       //     imageViewUserPicture.setImageResource(R.drawable.women_profile);
 
 
         return lineView;
