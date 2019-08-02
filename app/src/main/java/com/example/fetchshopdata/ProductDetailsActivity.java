@@ -1,5 +1,6 @@
 package com.example.fetchshopdata;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,7 +31,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        Item item = bundle.getParcelable("com.example.fetchshopdata.Item");
+        final Item item = bundle.getParcelable("com.example.fetchshopdata.Item");
 
 
         nameText.setText(item.getName());
@@ -40,7 +42,7 @@ public class ProductDetailsActivity extends AppCompatActivity {
         Picasso.with(getApplicationContext()).load(url).into(imgPath);
 
 
-        FloatingActionButton fab = findViewById(R.id.fab);
+        Button fab = findViewById(R.id.add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +50,12 @@ public class ProductDetailsActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+
+
+
+
     }
 
 }

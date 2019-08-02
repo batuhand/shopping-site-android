@@ -108,5 +108,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         mQueue.add(request);
+        Button buttonParse =findViewById(R.id.button_parse);
+
+        buttonParse.setVisibility(View.GONE);
+
     }
 }
