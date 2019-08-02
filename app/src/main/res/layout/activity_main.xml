@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".MainActivity">
 
 
@@ -13,11 +12,7 @@
     <ListView
         android:id="@+id/listView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="-994dp"
-        android:layout_marginRight="-994dp"
-
-        tools:ignore="NotSibling" />
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/button_parse"

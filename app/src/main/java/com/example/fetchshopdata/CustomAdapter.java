@@ -52,7 +52,6 @@ public class CustomAdapter extends BaseAdapter {
         View lineView;
         lineView = userInflater.inflate(R.layout.custom_layout, null);
         TextView textViewName = (TextView) lineView.findViewById(R.id.textViewName);
-      //  TextView textViewShortDes = (TextView) lineView.findViewById(R.id.textViewShortDes);
         ImageView imageViewUserPicture = (ImageView) lineView.findViewById(R.id.imageViewUserPicture);
         TextView textVievPrice = (TextView) lineView.findViewById(R.id.textViewPrice);
 
@@ -60,8 +59,7 @@ public class CustomAdapter extends BaseAdapter {
         Item item = itemList.get(i);
         String url = "https://shopapp2.azurewebsites.net" + item.getImgPath();
         textViewName.setText(item.getName());
-     //   textViewShortDes.setText(item.getShortDescription());
-        textVievPrice.setText(String.valueOf(item.getPrice()));
+        textVievPrice.setText(String.valueOf(item.getPrice()) + " ₺");
         Picasso.with(context).load(url).into(imageViewUserPicture);
 
 

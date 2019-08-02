@@ -61,26 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 final Gson gson = new Gson();
                 String res = response.toString();
                 List<Item> items = gson.fromJson(res,category);
-                for(int i = 0 ; i<response.length(); i++){
-                    try {
-
-                      //  String json = gson.toJson(items);
-
-                        JSONObject item = response.getJSONObject(i);
-                        int id = item.getInt("id");
-                        String name = item.getString("name");
-                        String shortDescription = item.getString("shortDescription");
-                        double price = item.getDouble("price");
-                        boolean isItemOfTheWeek = item.getBoolean("isItemOfTheWeek");
-                        String imgPath = item.getString("imgPath");
-
-                       // mTextViewResult.append(items.get(i).toString());
-                        //mTextViewResult.append(String.valueOf(id) + ", " + name + ", "+ shortDescription+", "+String.valueOf(price)+", "+String.valueOf(isItemOfTheWeek) + ", " + imgPath +"\n\n");
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
+//
                 final ListView listView = (ListView) findViewById(R.id.listView);
 
                 CustomAdapter adapter = new CustomAdapter(getApplicationContext(), items );

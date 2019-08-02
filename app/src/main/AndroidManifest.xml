@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.fetchshopdata">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.fetchshopdata"
+    >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        tools:replace="android:label"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="Market"
@@ -14,7 +17,7 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".ProductDetailsActivity"
-            android:label="Detay"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity">
             <intent-filter>
